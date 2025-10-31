@@ -1,9 +1,11 @@
+const _ = require('lodash');
 // Eliminar caballero por nombre
 exports.eliminarPorNombre = async (req, res) => {
   const { nombre } = req.params;
+  const safeNombre = _.escapeRegExp(nombre);
   try {
     const Caballero = req.db.model('Caballero');
-    const result = await Caballero.deleteOne({ nombre: new RegExp(nombre, 'i') });
+    const result = await Caballero.deleteOne({ nombre: new RegExp(safeNombre, 'i') });
     if (result.deletedCount > 0) {
       res.json({ mensaje: 'Caballero eliminado correctamente' });
     } else {
@@ -12,6 +14,7 @@ exports.eliminarPorNombre = async (req, res) => {
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al eliminar caballero', error });
   }
+  const safeNombre = _.escapeRegExp(nombre);
 };
 
 // Modificar caballero por nombre
@@ -25,7 +28,7 @@ exports.modificarPorNombre = async (req, res) => {
       delete datos.imagen;
     }
     const caballero = await Caballero.findOneAndUpdate(
-      { nombre: new RegExp(nombre, 'i') },
+      { nombre: new RegExp(safeNombre, 'i') },
       datos,
       { new: true }
     );
@@ -84,6 +87,7 @@ exports.listarTodos = async (req, res) => {
   } catch (error) {
     res.status(500).json({ mensaje: 'Error en el servidor' });
   }
+  const safeNombre = _.escapeRegExp(nombre);
 }
 // El modelo se obtiene de la conexión inyectada
 
@@ -91,7 +95,7 @@ exports.consultarPorNombre = async (req, res) => {
   const { nombre } = req.params;
   try {
     const Caballero = req.db.model('Caballero');
-    const caballero = await Caballero.findOne({ nombre: new RegExp(nombre, 'i') });
+    const caballero = await Caballero.findOne({ nombre: new RegExp(safeNombre, 'i') });
     if (caballero) {
       res.json(caballero);
     } else {
