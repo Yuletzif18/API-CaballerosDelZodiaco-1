@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -21,24 +22,19 @@ const connBatallas = mongoose.createConnection(process.env.MONGODB_URI_BATALLAS)
 const BatallaSchema = require('./models/Batalla').schema;
 connBatallas.model('Batalla', BatallaSchema, 'batallas');
 
-
-// Servidor único para Render
 const app = express();
 app.use(cors());
 app.use(express.json());
-// Middleware CSP
 app.use((req, res, next) => {
 	res.setHeader(
 		"Content-Security-Policy",
-		"default-src 'self'; connect-src 'self' https://https-caballerosdelzodiaco-onrender-com.onrender.com; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
+		"default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
 	);
 	next();
 });
-// Ruta de bienvenida para evitar 404 en la raíz
 app.get('/', (req, res) => {
-	res.send('API Caballeros del Zodiaco está activa');
+	res.send('API Caballeros y Batallas activa');
 });
-// Inyectar la conexión adecuada según la ruta
 app.use((req, res, next) => {
 	if (req.path.startsWith('/api/batallas')) {
 		req.db = connBatallas;
@@ -53,6 +49,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 	console.log(`API unificada corriendo en puerto ${PORT}`);
 	console.log(`Puedes consultar: http://localhost:${PORT}/api/caballeros`);
-	console.log(`Puedes consultar por nombre: http://localhost:${PORT}/api/caballero/Mu`);
 	console.log(`Puedes consultar batallas: http://localhost:${PORT}/api/batallas`);
 });
