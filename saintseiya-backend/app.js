@@ -30,9 +30,13 @@ app.use(express.json());
 app.use((req, res, next) => {
 	res.setHeader(
 		"Content-Security-Policy",
-		"default-src 'self'; connect-src 'self' https://caballerosdelzodiaco.onrender.com; img-src 'self' data:; style-src 'self';"
+		"default-src 'self'; connect-src 'self' https://https-caballerosdelzodiaco-onrender-com.onrender.com; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
 	);
 	next();
+});
+// Ruta de bienvenida para evitar 404 en la raíz
+app.get('/', (req, res) => {
+	res.send('API Caballeros del Zodiaco está activa');
 });
 // Inyectar la conexión adecuada según la ruta
 app.use((req, res, next) => {
