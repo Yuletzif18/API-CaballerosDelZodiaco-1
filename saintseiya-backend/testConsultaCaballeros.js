@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Caballero = require('./models/Caballero');
 
-const uri = 'mongodb+srv://yuletzif2209_db_user:Yule2209@caballerosdelzodiaco.2xuwe9y.mongodb.net/caballerosdelzodiaco?retryWrites=true&w=majority';
+const uri = mongodb+srv://<DB_USER>:<DB_PASS>@cluster0.example.mongodb.net/saintseiya_caballeros?retryWrites=true&w=majority
 
 mongoose.connect(uri)
   .then(async () => {
