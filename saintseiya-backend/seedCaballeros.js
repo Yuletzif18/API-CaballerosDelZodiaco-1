@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Caballero = require('./models/Caballero');
 const Batalla = require('./models/Batalla');
 
-const uriCaballeros = 'mongodb+srv://yuletzif2209_db_user:Yule2209@caballerosdelzodiaco.2xuwe9y.mongodb.net/saintseiya_caballeros?retryWrites=true&w=majority';
-const uriBatallas = 'mongodb+srv://yuletzif2209_db_user:Yule2209@caballerosdelzodiaco.2xuwe9y.mongodb.net/saintseiya_batallas?retryWrites=true&w=majority';
+const uriCaballeros = process.env.MONGODB_URI_CABALLEROS;
+const uriBatallas = process.env.MONGODB_URI_BATALLAS;
 
 const connCaballeros = mongoose.createConnection(uriCaballeros);
 const connBatallas = mongoose.createConnection(uriBatallas);
