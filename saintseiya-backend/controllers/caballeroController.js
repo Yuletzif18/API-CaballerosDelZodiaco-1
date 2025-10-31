@@ -20,10 +20,6 @@ exports.modificarPorNombre = async (req, res) => {
   const datos = req.body;
   try {
     const Caballero = req.db.model('Caballero');
-    // Solo acepta imagen como base64 o string
-    if (typeof datos.imagen !== 'string' || datos.imagen.startsWith('[object')) {
-      delete datos.imagen;
-    }
     const caballero = await Caballero.findOneAndUpdate(
       { nombre: new RegExp(nombre, 'i') },
       datos,
@@ -54,7 +50,7 @@ exports.crearCaballeroYBatalla = async (req, res) => {
       return res.status(409).json({ mensaje: 'Ya existe un caballero con ese nombre' });
     }
 
-    // Crear caballero con imagen base64
+    // Crear caballero
     const nuevoCaballero = new Caballero({ nombre, signo, rango, constelacion, genero, imagen, descripcion });
     await nuevoCaballero.save();
 
@@ -62,7 +58,7 @@ exports.crearCaballeroYBatalla = async (req, res) => {
     if (fecha && participantes && ganador && ubicacion) {
       const nuevaBatalla = new Batalla({
         fecha,
-        participantes: participantes.split(',').map(p => p.trim()),
+        participantes: Array.isArray(participantes) ? participantes : String(participantes).split(',').map(p => p.trim()),
         ganador,
         ubicacion,
         comentario
