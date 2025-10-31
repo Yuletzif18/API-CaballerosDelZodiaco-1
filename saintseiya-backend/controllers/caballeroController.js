@@ -1,3 +1,4 @@
+const _ = require('lodash');
 // Eliminar caballero por nombre
 exports.eliminarPorNombre = async (req, res) => {
   const { nombre } = req.params;
@@ -49,7 +50,8 @@ exports.crearCaballeroYBatalla = async (req, res) => {
     } = req.body;
 
     // Validar duplicado por nombre (case-insensitive)
-    const existe = await Caballero.findOne({ nombre: new RegExp(`^${nombre}$`, 'i') });
+    const safeNombre = _.escapeRegExp(nombre);
+    const existe = await Caballero.findOne({ nombre: new RegExp(`^${safeNombre}$`, 'i') });
     if (existe) {
       return res.status(409).json({ mensaje: 'Ya existe un caballero con ese nombre' });
     }
