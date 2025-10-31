@@ -1,20 +1,140 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# StickerSmash Caballeros
 
-## Get started
+Aplicación fullstack para gestión de caballeros y batallas de Saint Seiya. Incluye backend Node.js/Express (MongoDB) y frontend Expo/React Native con soporte para imágenes, gestos y despliegue seguro en Render.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Características
+- CRUD de caballeros y batallas
+- Subida y visualización de imágenes (con ImagePicker y Multer)
+- Gestos avanzados en imágenes (pinch, pan, double-tap)
+- Responsive en móvil y web
+- Backend seguro y desplegado en Render
+- Variables de entorno para configuración segura
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## Estructura del proyecto
+```
+├── app/                # Frontend Expo/React Native
+│   ├── (tabs)/         # Pantallas principales
+│   ├── components/     # Componentes reutilizables
+│   └── ...
+├── saintseiya-backend/ # Backend Node.js/Express
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── app.js
+├── assets/             # Imágenes y recursos
+├── .env                # Variables de entorno (no subir a GitHub)
+├── package.json
+├── README.md
+└── ...
+```
+
+---
+
+## Instalación y desarrollo
+
+### 1. Clona el repositorio
+```sh
+git clone https://github.com/tu-usuario/stickersmash-caballeros.git
+cd stickersmash-caballeros
+```
+
+### 2. Configura las variables de entorno
+Crea un archivo `.env` en la raíz:
+```
+EXPO_PUBLIC_API_URL=http://localhost:3001   # Para desarrollo local
+MONGODB_URI=tu_cadena_de_conexion           # Solo para backend
+```
+Agrega `.env` a `.gitignore`.
+
+### 3. Instala dependencias
+```sh
+npm install
+```
+
+### 4. Ejecuta el backend
+```sh
+cd saintseiya-backend
+npm install
+node app.js
+```
+
+### 5. Ejecuta el frontend
+```sh
+cd ..
+npx expo start
+```
+
+---
+
+## Despliegue en Render
+
+1. Sube el proyecto a GitHub.
+2. Ve a https://dashboard.render.com/ y crea un nuevo Web Service.
+3. Configura los comandos:
+   - Build: `npm install`
+   - Start: `node saintseiya-backend/app.js`
+4. Agrega variables de entorno en Render:
+   - `MONGODB_URI` (tu cadena de conexión)
+   - `EXPO_PUBLIC_API_URL` (la URL pública de Render)
+5. Render te dará una URL pública segura (HTTPS).
+6. Actualiza `.env` en frontend con la URL pública para producción.
+
+---
+
+## Seguridad
+- No subas `.env` ni credenciales a GitHub.
+- Usa variables de entorno en Render.
+- El backend valida y sanitiza los datos recibidos.
+- CORS configurado para permitir solo orígenes necesarios.
+
+---
+
+## Tecnologías
+- Node.js, Express, MongoDB, Mongoose
+- Expo, React Native, React Native Gesture Handler, Reanimated
+- Multer, ImagePicker
+- Render (despliegue)
+
+---
+
+## Scripts útiles
+- `npm run start`        # Inicia Expo
+- `npm run android`      # Inicia en Android
+- `npm run ios`          # Inicia en iOS
+- `npm run web`          # Inicia en web
+- `node saintseiya-backend/app.js` # Inicia backend
+
+---
+
+## Licencia
+MIT
+
+---
+
+## Autor
+- Yulet (tu nombre o usuario)
+- Contacto: [tu-email]
+
+---
+
+## Contribuciones
+¡Pull requests y sugerencias son bienvenidas!
+
+---
+
+## Demo
+- [URL pública de Render](https://tu-app.onrender.com)
+
+---
+
+## Notas
+- Para desarrollo local, usa tu IP en `.env` si pruebas en dispositivos físicos.
+- Para producción, usa la URL pública de Render.
 
 In the output, you'll find options to open the app in a
 
